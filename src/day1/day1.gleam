@@ -6,16 +6,16 @@ import parsing/parsing
 
 pub fn main() {
   let string_list = parsing.read("./input/day1")
-  let dialsResult = result.all(list.map(string_list, to_dial))
+  let dials_result = result.all(list.map(string_list, to_dial))
   let day1a =
-  dialsResult
+  dials_result
     |> result.map(fn(dials) {
       calculate_number_of_dials_exactly_zero(dials, 50, 0)
     })
     |> result.unwrap(0)
 
   let day1b =
-  dialsResult
+  dials_result
     |> result.map(fn(dials) {
       calculate_number_of_dials_past_zero(dials, 50, 0)
     })
