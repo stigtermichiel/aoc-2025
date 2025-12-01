@@ -67,12 +67,6 @@ pub fn turn_dial(dial: Dial, position: Int) -> Int {
         _ -> new_position
       }
     }
-    Right -> {
-      let new_position = position + dial.turn_amount % 100
-      case new_position {
-        a if new_position >= 100 -> a - 100
-        _ -> new_position
-      }
-    }
+    Right -> {position + dial.turn_amount} % 100
   }
 }
