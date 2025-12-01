@@ -1,4 +1,3 @@
-import gleam/int
 import gleam/io
 
 pub fn main() {
@@ -18,7 +17,6 @@ pub fn turn_dial(dial: Dial, position: Int) -> Int {
   case dial.direction {
     Left -> {
       let new_position = position - dial.turn_amount
-      io.println(int.to_string(new_position))
       case new_position {
         a if new_position < 0 -> 100 + a
         _ -> new_position
@@ -27,7 +25,7 @@ pub fn turn_dial(dial: Dial, position: Int) -> Int {
     Right -> {
       let new_position = position + dial.turn_amount
       case new_position {
-        a if new_position > 100 -> 0 + a
+        a if new_position > 100 -> a - 100
         _ -> new_position
       }
     }
