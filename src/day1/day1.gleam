@@ -99,13 +99,13 @@ pub fn calculate_number_of_dials_past_zero(
       }
       let new_position = turn_dial(first, dial_position)
       let new_amount_of_zeroes = case new_position {
-        0 -> amount_of_zeroes + 1
-        _ -> amount_of_zeroes
+        0 -> 1
+        _ -> 0
       }
       calculate_number_of_dials_past_zero(
         rest,
         new_position,
-        new_amount_of_zeroes + amount_full_rotation + crossed_zero,
+        amount_of_zeroes  + new_amount_of_zeroes + amount_full_rotation + crossed_zero,
       )
     }
   }
