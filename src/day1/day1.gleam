@@ -6,16 +6,16 @@ import parsing/parsing
 
 pub fn main() {
   let string_list = parsing.read("./input/day1")
-  let blah = result.all(list.map(string_list, to_dial))
+  let dialsResult = result.all(list.map(string_list, to_dial))
   let day1a =
-    blah
+  dialsResult
     |> result.map(fn(dials) {
       calculate_number_of_dials_exactly_zero(dials, 50, 0)
     })
     |> result.unwrap(0)
 
-
-  let day1b = blah
+  let day1b =
+  dialsResult
     |> result.map(fn(dials) {
       calculate_number_of_dials_past_zero(dials, 50, 0)
     })
@@ -87,25 +87,30 @@ pub fn calculate_number_of_dials_past_zero(
       let amount_full_rotation = first.turn_amount / 100
       let crossed_zero = case first.direction {
         Left ->
-          case dial_position - first.turn_amount % 100 < 0 && dial_position != 0 {
+          case
+            dial_position - first.turn_amount % 100 < 0 && dial_position != 0
+          {
             True -> 1
             False -> 0
           }
         Right ->
-          case dial_position + first.turn_amount % 100 > 100  {
+          case dial_position + first.turn_amount % 100 > 100 {
             True -> 1
             False -> 0
           }
       }
       let new_position = turn_dial(first, dial_position)
-      let new_amount_of_zeroes = case new_position {
+      let exactly_zero = case new_position {
         0 -> 1
         _ -> 0
       }
       calculate_number_of_dials_past_zero(
         rest,
         new_position,
-        amount_of_zeroes  + new_amount_of_zeroes + amount_full_rotation + crossed_zero,
+        amount_of_zeroes
+          + exactly_zero
+          + amount_full_rotation
+          + crossed_zero,
       )
     }
   }
