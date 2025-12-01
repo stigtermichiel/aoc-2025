@@ -51,11 +51,14 @@ pub fn calculate_number_of_dials_zero_test() {
     day1.Dial(day1.Left, 99),
     day1.Dial(day1.Right, 14),
     day1.Dial(day1.Left, 82),
+   day1.Dial(day1.Left , 500)
   ]
 
-  let amount_of_zeroes = day1.calculate_number_of_dials_zero(dials, 50, 0)
+  let amount_of_zeroes = day1.calculate_number_of_dials_exactly_zero(dials, 50, 0)
+  let amount_of_zeroes_passed = day1.calculate_number_of_dials_past_zero(dials, 50, 0)
 
   assert amount_of_zeroes == 3
+  assert amount_of_zeroes_passed == 11
 }
 
 
