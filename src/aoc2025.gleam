@@ -1,6 +1,5 @@
-// In src/vars.gleam
 import gleam/io
 
 pub fn main() {
-  io.println("Hello from vars!")
+  io.println("Hello from aoc2025!")
 }
