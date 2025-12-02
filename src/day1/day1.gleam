@@ -5,17 +5,17 @@ import gleam/result
 import parsing/parsing
 
 pub fn main() {
-  let string_list = parsing.read("./input/day1")
+  let string_list = parsing.read("./input/day1", "\n")
   let dials_result = result.all(list.map(string_list, to_dial))
   let day1a =
-  dials_result
+    dials_result
     |> result.map(fn(dials) {
       calculate_number_of_dials_exactly_zero(dials, 50, 0)
     })
     |> result.unwrap(0)
 
   let day1b =
-  dials_result
+    dials_result
     |> result.map(fn(dials) {
       calculate_number_of_dials_past_zero(dials, 50, 0)
     })
@@ -61,16 +61,16 @@ pub fn calculate_number_of_dials_exactly_zero(
 ) -> Int {
   case dials {
     [] -> amount_of_zeroes
-    [first, ..rest] -> {
-      let new_position = turn_dial(first, dial_position)
-      let new_amount_of_zeroes = case new_position {
-        0 -> amount_of_zeroes + 1
-        _ -> amount_of_zeroes
-      }
+    [dial, ..others] -> {
+      let new_position = turn_dial(dial, dial_position)
       calculate_number_of_dials_exactly_zero(
-        rest,
+        others,
         new_position,
-        new_amount_of_zeroes,
+        amount_of_zeroes
+          + case new_position {
+          0 -> 1
+          _ -> 0
+        },
       )
     }
   }
@@ -84,7 +84,7 @@ pub fn calculate_number_of_dials_past_zero(
   case dials {
     [] -> amount_of_zeroes
     [first, ..rest] -> {
-      let amount_full_rotation = first.turn_amount / 100
+      let full_rotations = first.turn_amount / 100
       let crossed_zero = case first.direction {
         Left ->
           case
@@ -107,10 +107,7 @@ pub fn calculate_number_of_dials_past_zero(
       calculate_number_of_dials_past_zero(
         rest,
         new_position,
-        amount_of_zeroes
-          + exactly_zero
-          + amount_full_rotation
-          + crossed_zero,
+        amount_of_zeroes + exactly_zero + full_rotations + crossed_zero,
       )
     }
   }
