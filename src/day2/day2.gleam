@@ -34,10 +34,7 @@ pub fn main() {
     list.filter(list.range(range.start, range.end), fn(id) { invalid_id_b(id) })
   }),
   )
-
-  let a = [1, 2, 3]
-  echo list.sized_chunk(a, 3)
-
+  
   int.to_string(int.sum(day2_a))
   |> io.println()
 
