@@ -29,12 +29,14 @@ pub fn main() {
     )
 
   let day2_b =
-  list.flatten(
-  list.map(ranges, fn(range) {
-    list.filter(list.range(range.start, range.end), fn(id) { invalid_id_b(id) })
-  }),
-  )
-  
+    list.flatten(
+      list.map(ranges, fn(range) {
+        list.filter(list.range(range.start, range.end), fn(id) {
+          invalid_id_b(id)
+        })
+      }),
+    )
+
   int.to_string(int.sum(day2_a))
   |> io.println()
 
