@@ -40,19 +40,16 @@ pub fn count_rolls_removed(
   board: Grid,
   rolls_removed: Int,
 ) -> Int {
-  let new_grid: #(Int, dict.Dict(#(Int, Int), String)) = dict.fold(board, #(0, board), fn(acc, position, item) {
+  let gr = dict.fold(board, #(0, board), fn(acc, position, item) {
     case item == "@" && around_fewer_than_four_rolls(position, board) {
-      True -> {
-        let new_board = dict.insert(pair.second(acc), position, ".")
-        #(pair.first(acc) + 1, new_board)
-      }
+      True -> #(pair.first(acc) + 1, dict.insert(pair.second(acc), position, "."))
       False -> acc
     }
   })
 
-  case pair.first(new_grid) == 0 {
+  case pair.first(gr) == 0 {
     True -> rolls_removed
-    False -> count_rolls_removed(pair.second(new_grid), rolls_removed + pair.first(new_grid))
+    False -> count_rolls_removed(pair.second(gr), rolls_removed + pair.first(gr))
   }
 
 }
