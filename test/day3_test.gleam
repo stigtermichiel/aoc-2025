@@ -1,64 +1,22 @@
-import day1/day1
+import day3/day3
 import gleeunit
 
 pub fn main() {
   gleeunit.main()
 }
 
-pub fn turn_dial_right_test() {
-  let dial = day1.Dial(day1.Right, 10)
-  let a = day1.turn_dial(dial, 50)
-  assert a == 60
+pub fn can_find_highest_joltage_in_a_bank_test() {
+  let bank: day3.Bank = ["6", "1", "5", "5", "1", "1", "7", "9", "6", "2", "4"]
+  let banka: day3.Bank = ["8", "1", "5", "5", "1", "7", "4", "6", "2", "9"]
+  assert day3.highest_voltage(bank) == 96
+  assert day3.highest_voltage(banka) == 89
 }
 
-pub fn turn_dial_left_test() {
-  let dial = day1.Dial(day1.Left, 10)
-  let a = day1.turn_dial(dial, 50)
-  assert a == 40
+pub fn can_find_highest_joltage_in_a_bank_b_test() {
+  let bank: day3.Bank = ["9", "8", "7", "6", "5", "4", "3", "2", "1", "1", "1", "1", "1", "1", "1"]
+  let banka: day3.Bank = ["8", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "9"]
+  let bankb: day3.Bank = ["2","3","4","2","3","4","2","3","4","2","3","4","2","7","8"]
+  assert day3.highest_voltage_b(bank) == 987654321111
+  assert day3.highest_voltage_b(banka) == 811111111119
+  assert day3.highest_voltage_b(bankb) == 434234234278
 }
-
-pub fn turn_dial_left_when_back_to_zero_test() {
-  let dial = day1.Dial(day1.Left, 60)
-  let a = day1.turn_dial(dial, 50)
-  assert a == 90
-}
-
-pub fn turn_dial_right_when_back_to_zero_test() {
-  let dial = day1.Dial(day1.Right, 60)
-  let a = day1.turn_dial(dial, 50)
-  assert a == 10
-}
-
-pub fn turn_dial_right_when_really_big_test() {
-  let dial = day1.Dial(day1.Right, 400)
-  let a = day1.turn_dial(dial, 50)
-  assert a == 50
-
-  let dial_left = day1.Dial(day1.Left, 400)
-  let b = day1.turn_dial(dial_left, 50)
-  assert b == 50
-}
-
-pub fn calculate_number_of_dials_zero_test() {
-  let dials = [
-    day1.Dial(day1.Left, 68),
-    day1.Dial(day1.Left, 30),
-    day1.Dial(day1.Right, 48),
-    day1.Dial(day1.Left, 5),
-    day1.Dial(day1.Right, 60),
-    day1.Dial(day1.Left, 55),
-    day1.Dial(day1.Left, 1),
-    day1.Dial(day1.Left, 99),
-    day1.Dial(day1.Right, 14),
-    day1.Dial(day1.Left, 82),
-   day1.Dial(day1.Left , 500)
-  ]
-
-  let amount_of_zeroes = day1.calculate_number_of_dials_exactly_zero(dials, 50, 0)
-  let amount_of_zeroes_passed = day1.calculate_number_of_dials_past_zero(dials, 50, 0)
-
-  assert amount_of_zeroes == 3
-  assert amount_of_zeroes_passed == 11
-}
-
-
