@@ -24,7 +24,7 @@ pub fn main() {
           False -> acc
         }
       }
-      _, _ -> acc
+      _ -> acc
     }
   })
   |> echo
@@ -42,15 +42,15 @@ pub fn count_rolls_removed(
     case cell {
       Cell(position, char) if char == "@" -> {
         case around_fewer_than_four_rolls(position, board) {
-          True -> #(pair.first(acc) + 1, list.append(pair.second(acc), [Cell(position, ".")]))
-          False -> #(pair.first(acc), list.append(pair.second(acc), [cell]))
+          True -> #(pair.first(acc) + 1, [Cell(position, "."), ..pair.second(acc)])
+          False -> #(pair.first(acc), [cell, ..pair.second(acc)])
         }
       }
-      _, _ -> #(pair.first(acc), list.append(pair.second(acc), [cell]))
+      _-> #(pair.first(acc), [cell, ..pair.second(acc)])
     }
   })
 
-  case pair.second(new_grid) == board {
+  case pair.first(new_grid) == 0 {
     True -> rolls_removed
     False -> count_rolls_removed(pair.second(new_grid), rolls_removed + pair.first(new_grid))
   }
